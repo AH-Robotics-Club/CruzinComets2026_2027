@@ -16,7 +16,6 @@ public class Intake {
     private static DcMotorEx intake_motor;
     private static Gamepad gamepad1;
     private static Telemetry telemetry;
-    public static String name = "hello";
 
     public static void init(HardwareMap hwMap, Gamepad gamepad, Telemetry telemetry, String deviceName) {
         intake_motor = hwMap.get(DcMotorEx.class, deviceName);

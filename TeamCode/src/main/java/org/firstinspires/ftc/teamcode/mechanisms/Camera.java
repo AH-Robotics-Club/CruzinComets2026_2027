@@ -130,7 +130,7 @@ public class Camera {
         return detected_tags;
     }
 
-    public static AprilTagClusterDetection get(String name) {
+    public static Optional<AprilTagClusterDetection> get(String name) {
         List<AprilTagDetection> detections = aprilTag.getDetections();
 
         for (AprilTagDetection detection : detections) {
@@ -139,13 +139,41 @@ public class Camera {
                 // first_string.equals(other_string) checks if the values of both string match
                 // String == other_string checks if they are both the same variable
                 // So we must use .equals for String comparisons
-                if (name.equals(cluster_detection.metadata.name)) {
-                    return cluster_detection;
+                if (name.equals(cluster_detection.metadata.name) || name.equals(cluster_detection.metadata.shortName)) {
+                    subTelemetry.addLine("Detected tag");
+                    return Optional.of(cluster_detection);
                 }
             }
         }
-        return null;
+        return Optional.empty();
     }
+
+    // TODO make the method check for only shooting april tags
+//    public static AprilTagClusterDetection get_shooting_tag() {
+//        List<AprilTagDetection> detections = aprilTag.getDetections();
+//        AprilTagDetection closest_april_tag = null;
+//
+//        for (AprilTagDetection detection : detections) {
+//            if (detection instanceof AprilTagClusterDetection) {
+//                AprilTagClusterDetection cluster_detection = (AprilTagClusterDetection) detection;
+//                // first_string.equals(other_string) checks if the values of both string match
+//                // String == other_string checks if they are both the same variable
+//                // So we must use .equals for String comparisons
+//                if (name.equals(cluster_detection.metadata.name)) {
+//                    if (closest_april_tag==null){
+//                        closest_april_tag = cluster_detection;
+//                    }else{
+//                        if (closest_april_tag.ftcPose.range>cluster_detection.ftcPose.range){
+//                            closest_april_tag = cluster_detection;
+//                        }
+//                    }
+//
+//                }
+//            }
+//        }
+//
+//        return closest_april_tag;
+//    }
 
 
     public static boolean isScorable() {

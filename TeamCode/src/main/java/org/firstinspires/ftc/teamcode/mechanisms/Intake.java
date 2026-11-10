@@ -17,20 +17,21 @@ public class Intake {
     private static Gamepad gamepad1;
     private static Telemetry telemetry;
 
-    public static void init(HardwareMap hwMap, Gamepad gamepad1, Telemetry telemetry, String deviceName) {
+    public static void init(HardwareMap hwMap, Gamepad gamepad, Telemetry telemetry, String deviceName) {
         intake_motor = hwMap.get(DcMotorEx.class, deviceName);
         intake_motor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        intake_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         telemetry=telemetry;
-        gamepad1 = gamepad1;
+        gamepad1 = gamepad;
 
     }
 
     public static void on() {
-        intake_motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         if (gamepad1.rightBumperWasPressed()) {
             motorRunning = !motorRunning;
             if (motorRunning){
-                intake_motor.setVelocity(500);
+                intake_motor.setVelocity(5000);
             }
             else{
                 intake_motor.setVelocity(0);

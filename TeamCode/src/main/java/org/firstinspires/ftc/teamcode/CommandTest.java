@@ -46,6 +46,8 @@ import org.firstinspires.ftc.teamcode.mechanisms.Constants;
 @Autonomous
 public class CommandTest extends OpMode {
     private Follower follower;
+
+
     private final PoseFactory poseFactory = PoseFactory.degrees();
 
     // Poses
@@ -105,6 +107,7 @@ public class CommandTest extends OpMode {
 
         follower = Constants.create(hardwareMap);
         follower.setPose(startPose);
+
         follower.update();
     }
 
